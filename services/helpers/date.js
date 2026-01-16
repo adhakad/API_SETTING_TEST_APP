@@ -1,0 +1,1 @@
+exports.toDate = (dt) => new Date(dt).toISOString().slice(0, 10);

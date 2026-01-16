@@ -1,0 +1,123 @@
+{
+    "count": 2,
+    "next": null,
+    "previous": null,
+    "msg": "",
+    "code": 0,
+    "data": [
+        {
+            "id": "5046946592142",
+            "emp_code": "1",
+            "first_name": "Rahul",
+            "last_name": null,
+            "nickname": null,
+            "device_password": "1234",
+            "card_no": "8025855",
+            "department": {
+                "id": 1,
+                "dept_code": "1",
+                "dept_name": "Department"
+            },
+            "position": {
+                "id": 1,
+                "position_code": "1",
+                "position_name": "Position"
+            },
+            "area": [
+                {
+                    "id": 2,
+                    "area_code": "2",
+                    "area_name": "ZXC_01"
+                }
+            ],
+            "hire_date": null,
+            "gender": null,
+            "birthday": null,
+            "verify_mode": 0,
+            "emp_type": null,
+            "validity_start": null,
+            "validity_end": null,
+            "contact_tel": null,
+            "office_tel": null,
+            "mobile": null,
+            "national": null,
+            "city": null,
+            "address": null,
+            "postcode": null,
+            "email": null,
+            "enroll_sn": "",
+            "aadhaar_no": null,
+            "religion": null,
+            "enable_att": true,
+            "enable_overtime": false,
+            "enable_holiday": true,
+            "dev_privilege": 0,
+            "self_password": "pbkdf2_sha256$600000$vPO2wvNi4nwjVKw9MW8QuY$p8nnHnRhpOdC/gVBj2xjayF9KQEkPiVmJYQCKzACxkk=",
+            "flow_role": [],
+            "status": 0,
+            "app_status": 0,
+            "app_role": 1,
+            "update_time": "2025-12-13 14:07:29",
+            "fingerprint": "-",
+            "face": "-",
+            "palm": "-"
+        },
+        {
+            "id": "675139602441",
+            "emp_code": "1003",
+            "first_name": "ANKIT",
+            "last_name": "",
+            "nickname": "",
+            "device_password": "",
+            "card_no": "",
+            "department": {
+                "id": 1,
+                "dept_code": "1",
+                "dept_name": "Department"
+            },
+            "position": {
+                "id": 1,
+                "position_code": "1",
+                "position_name": "Position"
+            },
+            "area": [
+                {
+                    "id": 2,
+                    "area_code": "2",
+                    "area_name": "ZXC_01"
+                }
+            ],
+            "hire_date": "2025-12-13",
+            "gender": "M",
+            "birthday": null,
+            "verify_mode": -1,
+            "emp_type": 1,
+            "validity_start": "2025-12-13",
+            "validity_end": "2025-12-13",
+            "contact_tel": "",
+            "office_tel": "",
+            "mobile": "",
+            "national": "",
+            "city": "",
+            "address": "",
+            "postcode": "",
+            "email": "",
+            "enroll_sn": "",
+            "aadhaar_no": "",
+            "religion": "",
+            "enable_att": true,
+            "enable_overtime": true,
+            "enable_holiday": true,
+            "dev_privilege": 0,
+            "self_password": "pbkdf2_sha256$600000$zT9taMzTKbg4qfuV8VLsob$965S6pzkfG2K8II+kTZcDCKF3JJE3dFYcJfJo8Ofnr0=",
+            "flow_role": [],
+            "status": 0,
+            "app_status": 1,
+            "app_role": 1,
+            "update_time": "2025-12-13 14:35:51",
+            "fingerprint": "-",
+            "face": "-",
+            "palm": "-"
+        }
+    ]
+}

@@ -1,0 +1,25 @@
+{
+  "name": "schooliya-api",
+  "version": "1.0.0",
+  "description": "School Management ERP with WDMS Integration",
+  "main": "server.js",
+  "scripts": {
+    "dev": "nodemon server.js",
+    "worker": "node workers/index.js",
+    "dev:worker": "nodemon workers/index.js"
+  },
+  "dependencies": {
+    "axios": "^1.6.0",
+    "bcryptjs": "^3.0.3",
+    "bullmq": "^5.0.0",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "ioredis": "^5.3.2",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^8.0.3",
+    "node-cron": "^3.0.3"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.11"
+  }
+}

@@ -1,0 +1,37 @@
+{
+    "count": 21,
+    "next": "http://127.0.0.1:8085/iclock/api/transactions/?page=2",
+    "previous": null,
+    "msg": "",
+    "code": 0,
+    "data": [
+        {
+            "id": 1,
+            "emp_code": "1",
+            "punch_time": "2025-12-01 14:54:59",
+            "punch_state": "0",
+            "verify_type": 2,
+            "work_code": "0",
+            "terminal_sn": "WED3242600621",
+            "terminal_alias": "ZXC_01",
+            "area_alias": "ZXC_01",
+            "longitude": null,
+            "latitude": null,
+            "gps_location": null,
+            "mobile": null,
+            "source": 1,
+            "purpose": 9,
+            "crc": "1",
+            "is_attendance": null,
+            "reserved": null,
+            "upload_time": "2025-12-13 14:07:32",
+            "sync_status": null,
+            "sync_time": null,
+            "temperature": null,
+            "mask_flag": null,
+            "company": "6b969e80-f3ff-11e9-afc7-acde48001122",
+            "emp": "5046946592142",
+            "terminal": 1
+        }
+    ]
+}

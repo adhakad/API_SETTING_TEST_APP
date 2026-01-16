@@ -1,0 +1,20 @@
+{
+    "count": 1,
+    "next": null,
+    "previous": null,
+    "msg": "",
+    "code": 0,
+    "data": [
+        {
+            "id": 1,
+            "dept_code": "1",
+            "dept_name": "Department",
+            "parent_dept": null,
+            "parent_dept_name": null,
+            "company": {
+                "id": "6b969e80-f3ff-11e9-afc7-acde48001122",
+                "name": "XCV"
+            }
+        }
+    ]
+}

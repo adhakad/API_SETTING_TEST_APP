@@ -1,0 +1,40 @@
+{
+    "count": 1,
+    "next": null,
+    "previous": null,
+    "msg": "",
+    "code": 0,
+    "data": [
+        {
+            "id": 1,
+            "sn": "WED3242600621",
+            "ip_address": "192.168.31.201",
+            "alias": "ZXC_01",
+            "terminal_name": "K45 Pro",
+            "fw_ver": "Ver 8.0.4.2-20210623",
+            "push_ver": "Ver 2.0.33S-20220613",
+            "state": 1,
+            "terminal_tz": 330,
+            "area": {
+                "id": 2,
+                "area_code": "2",
+                "area_name": "ZXC_01"
+            },
+            "last_activity": "2025-12-13 14:56:23",
+            "user_count": 3,
+            "fp_count": 0,
+            "face_count": 0,
+            "palm_count": 0,
+            "transaction_count": 21,
+            "push_time": "2025-12-13 14:36:00",
+            "transfer_time": "00:00;14:05",
+            "transfer_interval": 1,
+            "is_attendance": 1,
+            "area_name": "ZXC_01",
+            "company": {
+                "id": "6b969e80-f3ff-11e9-afc7-acde48001122",
+                "name": "XCV"
+            }
+        }
+    ]
+}
