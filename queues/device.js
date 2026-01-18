@@ -1,6 +1,9 @@
 'use strict';
 
 const { Queue } = require('bullmq');
-const { connection } = require('../config/redis');
+const redis = require('../config/redis');
 
-module.exports = new Queue('device-sync', { connection });
+module.exports = new Queue('device-sync', {
+  connection: redis.connection,
+  defaultJobOptions: redis.defaultJobOptions
+});

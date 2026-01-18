@@ -1,29 +1,37 @@
 'use strict';
 
-const { Worker } = require('bullmq');
-const { connection } = require('../config/redis');
-const WdmsAttendanceRaw = require('../models/WdmsAttendanceRaw');
-const { fetchAttendanceRaw } = require('../services/sync');
+require('../config/db');
+const { fetchAttendance } = require('../services/sync');
+const Attendance = require('../models/Attendance');
 
-module.exports = new Worker(
-  'attendance-sync',
-  async () => {
-    console.log('🚀 WDMS attendance raw sync started');
+(async () => {
+  console.log('🚀 Attendance worker started');
 
-    const rows = await fetchAttendanceRaw();
+  let page = null;
+  let saved = 0;
 
-    console.log('📥 Attendance rows from WDMS:', rows.length);
-
-    if (!rows.length) return;
+  do {
+    const { rows, next } = await fetchAttendance(page);
+    page = next;
+    if (!rows.length) break;
 
     const docs = rows.map(r => ({
-      ...r,
-      raw: r
+      terminal_sn: r.sn,
+      emp_code: r.emp_code,
+      punch_time: new Date(r.punch_time),
+      punch_state: r.punch_state
     }));
 
-    await WdmsAttendanceRaw.insertMany(docs);
+    try {
+      await Attendance.insertMany(docs, { ordered: false });
+      saved += docs.length;
+      console.log(`✅ Attendance saved: ${docs.length}`);
+    } catch (e) {
+      // duplicate errors ignore
+    }
 
-    console.log('✅ Attendance data saved:', docs.length);
-  },
-  { connection }
-);
+  } while (page);
+
+  console.log(`🎉 TOTAL Attendance Saved: ${saved}`);
+  process.exit(0);
+})();

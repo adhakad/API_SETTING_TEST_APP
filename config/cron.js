@@ -1,19 +1,13 @@
 'use strict';
 
 const cron = require('node-cron');
-const attendanceQueue = require('../queues/attendance');
-const deviceQueue = require('../queues/device');
+const { exec } = require('child_process');
 
-// Attendance – every 10 minutes
-cron.schedule('* * * * *', async () => {
-  console.log('[CRON] Attendance sync triggered');
-  await attendanceQueue.add('attendance-sync');
+cron.schedule('*/10 * * * *', () => {
+  console.log('⏰ CRON triggered');
+
+  exec('node src/workers/device.worker.js');
+  exec('node src/workers/attendance.worker.js');
 });
 
-// Device – daily 2 AM
-cron.schedule('*/2 * * * *', async () => {
-  console.log('[CRON] Device sync triggered');
-  await deviceQueue.add('device-sync');
-});
-
-console.log('✅ Cron jobs initialized');
+console.log('✅ Cron initialized (every 10 minutes)');

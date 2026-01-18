@@ -1,33 +1,36 @@
 'use strict';
 
-const { Worker } = require('bullmq');
-const { connection } = require('../config/redis');
-const School = require('../models/School');
+require('../config/db');
+const { fetchDevices } = require('../services/sync');
 const Device = require('../models/Device');
-const syncService = require('../services/sync');
 
-module.exports = new Worker(
-  'device-sync',
-  async () => {
-    console.log('[WORKER] Device sync started');
+(async () => {
+  console.log('🚀 Device worker started');
 
-    const schools = await School.find({ status: 'ACTIVE' });
+  let page = null;
 
-    for (const school of schools) {
-      const devices = await syncService.fetchDevices({ schoolId: school._id });
-      if (!devices?.length) continue;
+  do {
+    const { rows, next } = await fetchDevices(page);
+    page = next;
+    if (!rows.length) break;
 
-      const ops = devices.map(d => ({
-        updateOne: {
-          filter: { schoolId: school._id, serialNo: d.serialNo },
-          update: { $set: d },
-          upsert: true
-        }
-      }));
+    const ops = rows.map(d => ({
+      updateOne: {
+        filter: { terminal_sn: d.sn },
+        update: {
+          terminal_sn: d.sn,
+          device_name: d.terminal_name,
+          alias: d.alias,
+          active: d.state === 1
+        },
+        upsert: true
+      }
+    }));
 
-      await Device.bulkWrite(ops);
-      console.log(`✅ ${school.code} → ${ops.length} devices`);
-    }
-  },
-  { connection, concurrency: 1 }
-);
+    await Device.bulkWrite(ops, { ordered: false });
+    console.log(`✅ Devices synced: ${rows.length}`);
+  } while (page);
+
+  console.log('🎉 Device sync completed');
+  process.exit(0);
+})();

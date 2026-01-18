@@ -1,14 +1,27 @@
+'use strict';
+
 const mongoose = require('mongoose');
 
-const schema = new mongoose.Schema({
-  terminalSn: { type: String, required: true, unique: true },
-  model: String,
-  vendor: { type: String, default: 'ZKTeco' },
-  status: {
+const DeviceSchema = new mongoose.Schema({
+  terminal_sn: {
     type: String,
-    enum: ['NEW', 'ASSIGNED', 'ACTIVE', 'BLOCKED'],
-    default: 'NEW'
+    required: true,
+    unique: true,
+    index: true
+  },
+  device_name: String,
+  alias: String,
+
+  // future use
+  schoolId: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: false
+  },
+
+  active: {
+    type: Boolean,
+    default: true
   }
 }, { timestamps: true });
 
-module.exports = mongoose.model('Device', schema);
+module.exports = mongoose.model('Device', DeviceSchema);
