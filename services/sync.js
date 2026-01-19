@@ -11,6 +11,21 @@ const client = axios.create({
   timeout: 15000
 });
 
+async function fetchAttendance(next = null) {
+  try {
+    const url = next || '/iclock/api/transactions/?page_size=500';
+    const res = await client.get(url);
+
+    return {
+      rows: res.data?.data || [],
+      next: res.data?.next || null
+    };
+  } catch (err) {
+    console.error('❌ WDMS Attendance fetch error:', err.message);
+    return { rows: [], next: null };
+  }
+}
+
 async function fetchDevices(next = null) {
   try {
     const url = next || '/iclock/api/terminals/';
@@ -26,22 +41,7 @@ async function fetchDevices(next = null) {
   }
 }
 
-async function fetchAttendance(next = null) {
-  try {
-    const url = next || '/iclock/api/transactions/';
-    const res = await client.get(url);
-    console.log(res)
-    return {
-      rows: res.data?.data || [],
-      next: res.data?.next || null
-    };
-  } catch (err) {
-    console.error('❌ WDMS Attendance fetch error:', err.message);
-    return { rows: [], next: null };
-  }
-}
-
 module.exports = {
-  fetchDevices,
-  fetchAttendance
+  fetchAttendance,
+  fetchDevices
 };

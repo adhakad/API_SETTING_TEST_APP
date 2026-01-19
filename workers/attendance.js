@@ -1,6 +1,7 @@
 'use strict';
 
 require('../config/db');
+
 const { fetchAttendance } = require('../services/sync');
 const Attendance = require('../models/Attendance');
 
@@ -8,30 +9,39 @@ const Attendance = require('../models/Attendance');
   console.log('🚀 Attendance worker started');
 
   let page = null;
-  let saved = 0;
+  let totalSaved = 0;
 
   do {
     const { rows, next } = await fetchAttendance(page);
     page = next;
+
     if (!rows.length) break;
 
+    console.log(`✅ Attendance batch fetched: ${rows.length}`);
+
     const docs = rows.map(r => ({
-      terminal_sn: r.sn,
+      terminal_sn: r.sn || r.terminal_sn,
       emp_code: r.emp_code,
       punch_time: new Date(r.punch_time),
-      punch_state: r.punch_state
+      punch_state: Number(r.punch_state)
     }));
 
     try {
-      await Attendance.insertMany(docs, { ordered: false });
-      saved += docs.length;
-      console.log(`✅ Attendance saved: ${docs.length}`);
+      const res = await Attendance.insertMany(docs, { ordered: false });
+      totalSaved += res.length;
+      console.log(`💾 Attendance saved: ${res.length}`);
     } catch (e) {
-      // duplicate errors ignore
+      if (e.writeErrors) {
+        const inserted = e.result?.nInserted || 0;
+        totalSaved += inserted;
+        console.log(`⚠️ Duplicates skipped, saved: ${inserted}`);
+      } else {
+        console.error('❌ Attendance insert error:', e.message);
+      }
     }
 
   } while (page);
 
-  console.log(`🎉 TOTAL Attendance Saved: ${saved}`);
+  console.log(`🎉 TOTAL Attendance Saved: ${totalSaved}`);
   process.exit(0);
 })();
